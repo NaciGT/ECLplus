@@ -33,6 +33,7 @@
 #ins "2013"
 #ins "2014 S"
 #ins "2021 Sf"
+#ins "2022 SS"
 
 #ins "2100 ff"
 #ins "2101"
@@ -70,6 +71,13 @@
 #ins "2223 fS"
 #ins "2224 fS"
 #ins "2225 SfffffSS*S"
+
+#ins "2300 S"
+#ins "2301 SS"
+
+#ins "2400 SS"
+#ins "2401 f"
+#ins "2402 ffff"
 
 inline void msgWait(int channel) {
 	int received = false;
