@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Redistribution and use in source and binary forms, with or without modification,
 * are permitted provided that the following conditions are met:
 *
@@ -19,6 +19,7 @@
 #include "pch.h"
 #include "ins2000.h"
 #include "ECLplus.h"
+#include "score_ui.h"
 
 static DWORD EclArgList(CHAR* args, ENEMY* enm, INSTR* ins, PARAMD* D, DWORD i) {
     DWORD ind = 0;
@@ -170,7 +171,28 @@ BOOL ins_2000(ENEMY* enm, INSTR* ins) {
             GameSpell->bonus = GetIntArg(enm, 0);
         }
         break;
-    case INS_SOUND_PANNED:
+        case INS_BGM_UNLOCK: {
+            /* ins_2022(曲号(1起), 1解锁/0上锁)
+               解锁数组在 ScoreFile 对象（[0x4B77DC]）里，数组偏移由游戏自己持有：
+               运行时从 0x45ADF7 读取（原版 0x2D16E / 512 布局 0xF016E ✓ 两种都支持）。
+               写入后游戏原生解锁检查立刻认可（那 4 处检查我们保持原版 ✓）。
+               注意：不落盘 —— 存档重载后会复位（持久化留给 v2）。 */
+            int idx = GetIntArg(enm, 0) - 1;
+            int on  = GetIntArg(enm, 1) ? 1 : 0;
+            unsigned char* sf = *(unsigned char**)0x004B77DC;
+            unsigned off = *(unsigned*)0x0045ADF7;
+            if (!sf || (off != 0x2D16E && off != 0xF016E)) {
+                UiLogSafe("[ins2022] cannot locate unlock array (sf=%08X off=%X)", (unsigned)sf, off);
+                break;
+            }
+            if (idx < 0 || idx > 127) { UiLogSafe("[ins2022] track out of range: %d", idx + 1); break; }
+            __try {
+                sf[off + idx] = (unsigned char)on;
+                UiLogSafe("[ins2022] track %d unlock=%d (array offset %X)", idx + 1, on, off);
+            } __except (EXCEPTION_EXECUTE_HANDLER) { UiLogSafe("[ins2022] write fault"); }
+            break;
+        }
+        case INS_SOUND_PANNED:
         PlaySoundPanned(GetIntArg(enm, 0), GetFloatArg(enm, 1));
         break;
     default:

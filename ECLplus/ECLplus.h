@@ -23,6 +23,8 @@
 // ECLPLUS_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
 #pragma once
+#include <d3d9.h>
+#pragma comment(lib, "d3d9.lib")
 #ifdef ECLPLUS_EXPORTS
 #define ECLPLUS_API __declspec(dllexport)
 #else
@@ -280,3 +282,8 @@ VOID __stdcall InsSwitch(ENEMY* enm, INSTR* ins);
 #define FLAG_RECT_HITBOX 4096
 
 #define FLAG_BOMBSHIELD 268435456
+
+void MyStage4Draw();
+
+/* BOSS 位置标记：绘制阶段的可见性/alpha 写入（由 ins2400.cpp 的 Flush*Lines2400 每帧调用） */
+void AdvMarkerApply();

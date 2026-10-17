@@ -39,7 +39,9 @@ enum {
     INTVAR_PLAYER_STATE,
     INTVAR_HYPERTIMER,
     INTVAR_ISDIALOG,
-    INTVAR_SPELLBONUS
+    INTVAR_SPELLBONUS,
+    INTVAR_CUSTOM_FIRST = -7000,   // 第一个自定义变量 ID
+    INTVAR_CUSTOM_LAST = -6951,   // 最后一个自定义变量 ID
 };
 #define INTVAR_INPUT_LOC (DWORD*)0x004B3448
 #define INTVAR_SCORE_LOC (DWORD*)0x004B59FC
@@ -51,7 +53,12 @@ enum {
 #define INTVAR_CREDITS_LOC (DWORD*)0x004B59D0
 #define INTVAR_HYPERTIMER_LOC (DWORD*)0x004B5AA8
 #define INTVAR_ISDIALOG_LOC (DWORD*)((*(DWORD*)0x004B76AC) + 0x1C0)
+#define INTVAR_CUSTOM_COUNT 50
 
 DWORD IntVarGetVal(ENEMY* enm, DWORD var);
 
 DWORD* IntVarGetAddr(ENEMY* enm, DWORD var);
+
+void LoadCustomSave();
+void SaveCustomSave();
+void GenerateCustomSaveTexts();

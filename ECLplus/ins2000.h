@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Redistribution and use in source and binary forms, with or without modification,
 * are permitted provided that the following conditions are met:
 *
@@ -36,6 +36,7 @@ enum INS2000 {
     INS_TEXT_RESET,
     INS_TEXT_SHADOW,
     INS_SOUND_PANNED = 2021,
+    INS_BGM_UNLOCK = 2022,      /* 音乐室曲目解锁：ins_2022(曲号(1起), 1解锁/0上锁) */
 };
 
 /* INS_2000 series: general debug utilities */

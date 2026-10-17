@@ -1,5 +1,72 @@
-.vs
-Debug
-Release
-Debug-dev
-Release-dev
+# ---- Visual Studio / 构建输出 ----
+.vs/
+Debug/
+Release/
+Debug-dev/
+Release-dev/
+x64/
+Win32/
+ipch/
+*.user
+*.suo
+*.VC.db
+*.sdf
+*.opensdf
+*.pdb
+*.ipch
+*.pch
+*.obj
+*.iobj
+*.ipdb
+*.tlog
+*.log
+*.lastbuildstate
+*.recipe
+*.vsidx
+*.obj.dt.d.json
+*.map
+*.lib
+*.exp
+*.ilk
+CppProperties.json
+
+# ---- 编译产物 ----
+ECLPLUS.dll
+ECLPLUS.lib
+ECLplusLoader.exe
+
+# ---- 本地备份 / 临时文件（用 -- x 后缀或 .bak_ 命名）----
+_backup_*/
+*.bak
+*.bak_*
+*.prev_*
+*.broken_*
+*.new
+*- okbackup.*
+quarantine/
+
+# ---- 本地运行配置与数据（含个人设置 / 原作符卡名，不入库）----
+ECLplus.ini
+spell_table.csv
+ECLplusMusicUnlock.txt
+snapshot/
+*.bmp
+*.rpy
+*.dat
+
+# ---- 游戏资源（禁止入库；使用者需自备正版 th17）----
+*.anm
+*.ecl
+*.msg
+*.tmsg
+*.ogg
+*.wav
+*.xmp
+*.fmt
+th17.exe
+
+# ---- 其它 ----
+Thumbs.db
+desktop.ini
+.idea/
+*.swp

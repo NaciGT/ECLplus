@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Redistribution and use in source and binary forms, with or without modification,
 * are permitted provided that the following conditions are met:
 *
@@ -18,7 +18,7 @@
 
 #include "pch.h"
 #include "ECLplus.h"
-
+#include "intvar.h"   // 新增：提供 LoadCustomSave 声明
 BOOL APIENTRY DllMain(
     HMODULE hModule,
     DWORD  ul_reason_for_call,
@@ -27,12 +27,15 @@ BOOL APIENTRY DllMain(
     switch (ul_reason_for_call) {
     case DLL_PROCESS_ATTACH:
         init();
+        LoadCustomSave();   // 新增：加载自定义变量存档
+        GenerateCustomSaveTexts();   // 启动：兜底检测（幂等，不会重复叠加）
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:
+        SaveCustomSave();   // 新增：保存自定义变量存档
+        GenerateCustomSaveTexts();   // 退出前再兜底一次（可选）
         break;
     }
     return TRUE;
 }
-

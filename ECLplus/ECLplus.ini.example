@@ -1,0 +1,166 @@
+[ECLplus]
+SpellSlots=512                     ; 恢复（我们的符卡表模块要求 512 布局 ✓）
+Force=0                            ; 512 补丁是否强制安装（0=按检测自动，1=强制）
+SpellTable=1                       ; 符卡战绩表模块总开关（0=完全停用，游戏恢复原样）
+SpellTableRender=1                 ; v9 渲染（v44 起它自己会打码，必须=1）
+SpellTableInit=1                   ; 读档初始化补丁（把 index/难度 写进每条符卡）
+SpellTableFilter=1                 ; 难度过滤表补丁（游戏侧不再使用我们的数据）
+SpellTableLimit=1                  ; 恢复
+SpellTableNames=0                    ; ★ 必须=0：v7 名字钩子(0x4588F0/0x458924)未验证，开启会闪退
+SpellTablePos=1                    ; 旧版位置模式（ImGui 版不再使用）
+SpellTableX=320                    ; 旧版：备用位置 X
+SpellTableY0=150                   ; 旧版：备用位置 Y0
+SpellTableDY=20                    ; 旧版：备用行距
+SpellTableXOff=0                   ; 旧版：X 偏移
+SpellTableYOff=0                   ; 旧版：Y 偏移
+SpellTableAlignH=1                 ; 旧版：水平对齐（0=左 1=中 2=右）
+SpellTableAlignV=1                 ; 旧版：垂直对齐
+SpellTableFont=-1                  ; 旧版字体号（-1=不改游戏字体）
+SpellTableShadow=1                 ; 旧版：阴影开关
+SpellTableDuration=10              ; 旧版：文字存活帧数
+SpellTableRowLog=1                 ; 打印读到的行数据（排查用）
+SpellTableCrashLog=1               ; 崩溃报告（异常码/地址写进日志）
+SpellTableProbe=1                  ; 页面判定探针（命中=游戏正在画符卡列表）
+SpellTableStateLog=1               ; 每 20 帧记录菜单状态（排查用）
+SpellTableMonitor=1                ; 监控线程（发现补丁被覆盖就重装）
+SpellTableReinstallMs=3000         ; 启动后多少毫秒再补装一次钩子
+SpellTableRepair=1                 ; 持续补装开关
+SpellTableCodeHooks=1              ; 允许修改游戏代码（探针/钩子）
+SpellTableLateHooks=1              ; 延迟安装（等 thcrap 打完补丁后再装，避免冲突）
+SpellTableLateFrames=150           ; 延迟安装的帧数（150 帧约 2.5 秒）
+SpellTableFrameLog=1               ; 每 15 帧记录一次菜单字段（排查用）
+SpellTableDraw=0                   ; 旧的 v10 手写渲染（已被 ImGui 取代，保持 0）
+DrawRowX=64                        ; 旧版 v10：行文字 X
+DrawRowY0=172                      ; 旧版 v10：第一行 Y
+DrawRowDY=21                       ; 旧版 v10：行距
+DrawBgX0=48                        ; 旧版 v10：黑底左
+DrawBgY0=162                       ; 旧版 v10：黑底上
+DrawBgX1=632                       ; 旧版 v10：黑底右
+DrawBgY1=238                       ; 旧版 v10：黑底下
+DrawFontH=18                       ; 旧版 v10：字号
+DrawFontFace=SimHei                ; 旧版 v10：字体名
+DrawCharset=134                    ; 旧版 v10：字符集（134=GB2312）
+DrawColor=4294901856               ; 文字色：已收取（十进制 ARGB，金色）
+DrawBgColor=4278190080             ; 旧版 v10：背景色（黑）
+SpellTableGui=1                   ; ★ 必须=1：ScoreGuiFrame 里的 D3D9 状态操作是 v9 自建表上屏的前提（0 会让表消失）
+GuiX=50                            ; ★ 窗口左上角 X（逻辑 640x480 坐标，自动×缩放）
+GuiY=150                           ; ★ 窗口左上角 Y
+GuiW=540                           ; ★ 窗口宽（名字过长时可加到 620）
+GuiH=210                           ; ★ 窗口高（每行约 38 实际像素 → 210 约显示 11 行）
+GuiFontSize=15                   ; ★ 字号（逻辑像素；实际 = 15 × 2 = 30 像素）
+; 字体文件：留空=自动查找 Touhou_Simhei.ttf -> thcrap\bin\Touhou_Simhei.ttf -> 系统 simhei.ttf
+GuiFontFile=
+GuiTextColor=4294967280            ; 备用文字色（当前绘图用下面的 DrawColor* 系列）
+GuiBgAlpha=10                   ; ★ 背景不透明度（0=透明只看见我们的字，100=不透明黑底）
+GuiCols=1                          ; ★ 布局（1=名字贴左、统计贴右；0=整行字符串保底）
+GuiOutline=1                       ; ★ 文字黑描边开关（0=关）
+GuiOutlineWidth=2                  ; ★ 描边粗细（逻辑像素，1~3）
+DrawColorOutline=4278190080        ; 描边颜色（黑）
+GuiRowSpacing=2                   ; 行间额外间距（逻辑像素，0=默认；字大后觉得挤就写 4~8）
+GuiMaxRows=20                      ; 一页最多画几行（1~64）
+GuiMaskUnknown=1                   ; ★ 未遭遇的符卡名字打码（0=始终显示真名）
+GuiMaskAnyRecord=1                 ; ★ 打码口径：1=任一自机遇到过就显示真名（默认）；0=只看当前自机
+GuiMaskNeedCap=0                   ; ★ 解锁判据：0=【遭遇过就算解锁】(默认，遭遇主/练任一>=1)；1=必须「取得>=1」才解锁
+DrawColorSeen=4294967295           ; 文字色：已遭遇未收取（白色）
+DrawColorNone=4291358920           ; 文字色：未遭遇 0/0（浅灰）
+GuiScroll=1                        ; ★ 窗口可滚动（内容超出时可用滚轮/滚动条）
+GuiOwnView=0                       ; ★ 0=与游戏同步（难度=分组、游戏页码=页）；1=我们的标签自控
+GuiWndHook=1                       ; ★ 接管游戏窗口消息（滚轮/点击可用；鼠标异常时改 0）
+
+;     (the game keeps its own cursor / Z-to-play / comments; we only shift the song id)
+; tracks per window (18 = the room's native capacity; do not exceed it)
+; total playable tracks in your build (thbgm.fmt has 29 entries)
+
+; ---------- 音乐室 99（第三方包 music99，方案A：启动即安装）----------
+; 1 = 启用（音乐室上限提升到 99，显示条数取决于 musiccmt.txt 的真实条目数）
+; 0 = 不安装（保持原版 18 首上限）
+MusicRoom99=1                      ; 已洗清 ✓ 恢复启用
+MusicUnlockEnable=1                ; 已洗清 ✓ 恢复启用
+
+IndexBar=1   ; ★ 索引条总开关（1=在符卡表上方显示「第 x/y 页 No.a-b / 共n」，0=不显示；关掉不影响主表）
+IndexBarFontSize=15   ; ★ 字号（逻辑像素，与主表 GuiFontSize 同一口径；实际像素 = 本值 × 缩放）
+IndexBarTextColor=4285518591   ; ★ 文字颜色（0xAARRGGBB；4285518591 = 0xFF6FD2FF 浅蓝）
+IndexBarBgColor=3221225472   ; 索引条底色（0xAARRGGBB；3221225472 = 0xC0000000 黑；只取 RGB，透明度看下一项）
+IndexBarOutline=1   ; ★ 文字黑描边开关（0=关；与主表 GuiOutline 同口径）
+IndexBarRule=0   ; 文字下方细横线（1=加，0=不加）
+IndexBarPadX=6   ; 内边距 X（逻辑像素）
+IndexBarPadY=2   ; 内边距 Y（逻辑像素）
+IndexBarBgAlpha=10   ; ★ 底透明度 0~100（0=完全透明，只看见字；100=不透明黑底）
+IndexBarX=50   ; ★ 索引条左上角 X（逻辑 640x480 坐标，自动×缩放。屏幕中心=320）
+IndexBarY=131   ; ★ 索引条左上角 Y（逻辑坐标，越小越靠上。表格首行在 SpellTableY0=150，所以 131 就贴在表格上方）
+IndexBarFontFile=   ; 字体文件：留空=自动查找 msyh.ttc -> simhei.ttf -> simsun.ttc
+IndexBarOutlineWidth=2   ; ★ 描边粗细（逻辑像素 1~3；与主表 GuiOutlineWidth 同口径）
+IndexBarOutlineColor=4278190080   ; 描边颜色（0xAARRGGBB；4278190080 = 0xFF000000 黑；与主表 DrawColorOutline 同口径）
+
+
+; 作用：0 号 / 1 号 BOSS 各生成一个标记，x 跟随 BOSS，y 固定在指定高度。
+;       只要 ECL 里 ins_512(0) / ins_512(1) 注册了 BOSS 就自动出现，不需要改 ECL。
+;
+; 坐标公式（改完必须重启游戏才生效）：
+;
+;
+
+; 作用：0 号 / 1 号 BOSS 各生成一个标记，x 跟随 BOSS，y 固定在指定高度。
+;       只要 ECL 里 ins_512(0) / ins_512(1) 注册了 BOSS 就会自动出现，不需要改 ECL。
+;
+; 坐标公式（改完必须重启游戏才生效）：
+;
+;
+
+; 0 号 / 1 号 BOSS 各一个，x 跟随 BOSS，y 固定。ins_512(0)/ins_512(1) 一注册就自动出现。
+;
+; ★ 坐标空间已实测确定：这套 layer 用的是「屏幕 × 2」，即 1280 × 960
+;       anm_x = 2 * screen_x        anm_y = 2 * screen_y
+;       screen = 640x480，playfield 屏幕范围 x 32..416 / y 16..464
+;   所以：
+;       anm_x = 2 * (320 + BOSS.x) = BOSS.x * 2 + 640     ← 640 就是屏幕中心
+;       anm_y = 960  → 屏幕最底 480
+;       anm_y = 928  → playfield 底边 464
+;   之前只写 BOSS.x（没加 640），整体被推到画面外左侧，所以 x 测不出来。
+;
+; 公式（改完必须重启游戏才生效）：
+;
+;
+
+; ===== BOSS 位置标记（front.anm 的 script112，就是 "enemy" 贴图）=====
+; 0 号 / 1 号 BOSS 各一个，x 跟随 BOSS，y 固定。ins_512(0)/ins_512(1) 一注册就自动出现。
+;
+; ★ 坐标系依据：th17_layer坐标基准_逆向结论.md
+;   1) layer 29 的绘制 thunk = 0x4755E0（纯 thunk，不切 mode），在全局任务表里 id=78；
+;      最后一个 mode 切换点是 id 66（render_layer(39) 之后 set_render_mode(2)），
+;      所以 layer 29 是在【mode 2 = 屏幕/UI 坐标系】里画的。
+;   2) mode 0/2 原点 = 1280x960 画布左上角，单位 = 画布像素，执行域 2 倍放大居中：
+;          ui_x = 640 + 2 * ecl_x
+;          ui_y = 480 + 2 * ecl_y
+;   3) 执行域 ecl_y 范围 -224..+224，所以底边 ui_y = 928；画布最底边 = 960。
+;
+; 本组参数即 x = 200% * ecl_x + 449  （449 = 实测校准值）
+;
+; 公式（改完必须重启游戏才生效）：
+;     x = BOSS.x * BossMarkerXScale100/100 + BossMarkerXOffset
+;     y = BOSS.y * BossMarkerYScale100/100 + BossMarkerY + BossMarkerYOffset
+;
+BossMarker=1                ; 总开关：1=显示，0=关掉
+BossMarkerPosMode=0         ; 坐标写到哪个字段：0=entity_pos(0x5E4)  1=vm->pos(0x2C)  2=两个都写
+BossMarkerXScale100=200     ; x 跟随比例：200 = 公式里的 "2 * ecl_x"
+BossMarkerXOffset=449      ; x 偏移：实测值 449（不是理论上的画布中心 640）
+                            ;   注意 ins_421(0,2) 是左对齐；想让贴图居中在 BOSS 上就减去半个贴图宽：
+                            ;   若仍偏半个贴图宽：449-96 = 353
+BossMarkerY=960             ; y 基准：960 = 画布最底边；928 = 执行域底边；608 = BOSS 身上
+BossMarkerYOffset=0         ; y 微调偏移（在 BossMarkerY 基础上再叠加）
+BossMarkerYScale100=0       ; y 是否也跟随 BOSS：0=固定；100=完全跟着 BOSS 上下
+BossMarkerScale100=100      ; 标记大小：100 = ZUN 原始尺寸（画布 96x32 → 屏幕 48x16）；200 = 放大一倍
+BossMarkerAlpha=1           ; 复刻原版透明度：1=开（玩家靠近变淡、BOSS 出界隐藏），0=恒定不透明
+BossMarkerAlphaNear=64      ; 变淡的距离阈值（原版=64；|boss.x-player.x| 小于它才开始变淡）
+BossMarkerBlink=1           ; 复刻原版血量闪烁：1=开（掉血时闪、低于阈值一直闪），0=不闪
+BossMarkerBlinkRatio=25     ; 血量百分比低于它就一直闪
+BossMarkerBlinkPeriod=4     ; 闪烁周期（帧）：4=每 4 帧明暗切换一次
+BossMarkerPauseBit=16       ; 暂停冻结用 dword_4B5CDC 的哪一位（16=0x10）。0=完全不做暂停冻结
+BossMarkerBlinkHold=24      ; 受击后持续闪烁的帧数（20≈0.33秒）。改大=打得越久闪得越久
+BossMarkerBlinkDark=2       ; 每个周期里"暗"的帧数（原版脚本是亮16帧+黑2帧，所以=2 最像）
+BossMarkerDespawnDelay=30    ; BOSS 注销(ins_512)后延迟多少帧再清标记；0=立刻清，30≈0.5秒
+BossMarkerLog=0             ; 调试日志：0=不写（排查时临时改 1 会写 ECLplus_marker.log）
+
+; ===== 符卡表文件名（v59）=====
+; 战绩页自建表读哪个文件；换表不用改名
+SpellTableFile=spell_table.csv
