@@ -164,3 +164,11 @@ BossMarkerLog=0             ; 调试日志：0=不写（排查时临时改 1 会
 ; ===== 符卡表文件名（v59）=====
 ; 战绩页自建表读哪个文件；换表不用改名
 SpellTableFile=spell_table.csv
+
+; ===== 随机截图（默认关闭）=====
+; 自动截图：游玩中每 SnapMinSec~SnapMaxSec 秒抓一张 BMP 到 <游戏目录>\snapshot\
+; 1280x960 一张约 4.7MB，长时间游玩会把磁盘占满 —— 所以默认 0（关）。
+; 该功能预留给后续内容，需要时改 1。手动 F7 不受此开关影响（且仅 DEV 构建有）。
+SnapEnable=0
+SnapMinSec=20
+SnapMaxSec=60

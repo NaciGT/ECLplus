@@ -27,7 +27,7 @@ ECLplus is a modification for Touhou 17 - Wily Beast and Weakest Creature. It's 
 | **符卡名打码** | `score_ui.cpp` | 未遭遇的符卡不显示真名（`GuiMask*` 系列开关） |
 | **索引条** | `score_index.cpp` | 表格上方的 `第 N 页 / 共 M` 独立单元，位置/字体/颜色/描边全部 ini 可调 |
 | **音乐室扩容 + 解锁** | `music99.cpp` `musiclock.cpp` | 菜单/曲目列表上限扩到 **99**（突破原版 18 轨：音轨表 / Menu 缓冲 / 初始化 10 帧三处）。**但存档里的「已解锁曲目」位图只有 42 字节**（`ScoreFile+0x2D16E`，512 布局 `0xF016E`，索引 0..41）—— 紧随其后的 `+0x2D198`（`0xF0198`）是**成就位数组**，写入越界就会把成就全部刷开（这正是历史 bug 的根因）。所以代码把写入范围严格夹在 `cap=42` 内；自己的位图另存 `ECLplusMusicUnlock.txt`（上限 64，实际生效 42） |
-| **随机截屏** | `snap.cpp` | 游玩中随机截图到 `snapshot\`，可热键手动 |
+| **随机截屏** | `snap.cpp` | 游玩中随机截图到 `snapshot\`（默认**关闭**，`SnapEnable=1` 打开；每 20~60 秒一张 BMP，1280x960 约 4.7MB/张，注意磁盘）。手动 `F7` 随时可用（仅 DEV 构建） |
 | **存档完整性检查** | `savecheck.cpp` | 启动自动检查 + 热键；结果打印到控制台并写日志 |
 | **变量控制（2300 系）** | `ins2300.cpp` | `ins_2300(rank)` 直接改当前难度（写 `th17.exe+0xB5A00`，即 ECL 整数全局 `-9959`；0=Easy…4=Extra）。`ins_2301(index, value)` 写 ECLplus 自建的 50 个永久变量（存自己的文件，**不写游戏存档**） |
 | **文本生成器（intvar）** | `intvar.cpp` | 变量等于某个触发值时，把对应文本导出成 UTF-8 文件（含"未解锁"提示分支），实现"同一位置按条件显示不同文本"。示例条目见 `s_entries_LastWord[]`，可自行替换 |

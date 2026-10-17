@@ -8,7 +8,10 @@
 #define PTR_GAMEMODE  0x004B61D0
 #define PTR_GAMEMODE_NEXT 0x004B61D4
 
-static int   g_on = 1, g_min = 20, g_max = 60;
+/* 默认关闭：自动截图每 20~60 秒一张（1280x960 约 4.7MB/张），
+   长时间游玩会占满磁盘。该功能留给后续内容，需要时在 ini 里
+   设 SnapEnable=1 打开。手动 F7 不受此开关影响（且仅 DEV 构建有）。 */
+static int   g_on = 0, g_min = 20, g_max = 60;
 static DWORD g_next = 0;
 static int   g_inited = 0;
 static IDirect3DDevice9* g_dev = 0;
@@ -29,7 +32,7 @@ static void SnapDir(wchar_t* out, int n) {
 void SnapInit(void) {
     if (g_inited) return;
     g_inited = 1;
-    g_on  = SpellTableIniInt(L"SnapEnable", 1);
+    g_on  = SpellTableIniInt(L"SnapEnable", 0);   /* 默认 0 = 不自动截图 */
     g_min = SpellTableIniInt(L"SnapMinSec", 20);
     g_max = SpellTableIniInt(L"SnapMaxSec", 60);
     if (g_min < 1) g_min = 20;
